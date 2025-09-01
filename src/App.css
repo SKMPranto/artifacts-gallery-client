@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import "tailwindcss";
+@plugin "daisyui";
+
+* {
+  font-family: "Open Sans", sans-serif;
+}
+.permanent-marker-regular {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+html {
+  scroll-behavior: smooth; /* optional for smooth scroll */
+}
+
+body {
+  scroll-padding-top: 0; /* no extra offset */
+  overflow-anchor: none; /* prevent layout shift on hash changes */
+}
+
+/* Prevent jumping on :target */
+:target {
+  scroll-margin-top: 0 !important;
+  scroll-behavior: auto !important;
+}
