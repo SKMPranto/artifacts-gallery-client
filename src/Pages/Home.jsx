@@ -1,7 +1,9 @@
 import React from "react";
 import Banner from "./Banner";
+import Title from "../Shared/Title";
 
 const Home = () => {
+  Title("Home")
   return (
     <div>
       <div className="relative bg-[url('https://i.ibb.co.com/KpDpZpZv/Screenshot-2025-09-02-174856.jpg')] bg-cover bg-center mt-5 md:pl-2 rounded-2xl">
