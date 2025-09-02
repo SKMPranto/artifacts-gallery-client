@@ -1,11 +1,23 @@
-import React from 'react';
+import React from "react";
+import Banner from "./Banner";
 
 const Home = () => {
-    return (
-        <div>
-            I am Home
+  return (
+    <div>
+      <div className="md:flex items-center">
+        <div className="md:w-[50%] text-center md:text-left mb-5 md:mb-0">
+          <h1 className="text-3xl md:text-4xl lg:text-6xl">Welcome to <br /> <span className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#c09e61] asimovian-regular">Artifacts Gallery</span></h1>
+          <p className="text-sm md:text-base lg:text-lg">
+            Discover timeless treasures from history – explore rare artifacts, <br className="hidden 2xl:block" /> ancient tools, and cultural wonders all in one place
+          </p>
         </div>
-    );
+        <div className="md:w-[45%]">
+          <Banner></Banner>
+        </div>
+      </div>
+      I am Home
+    </div>
+  );
 };
 
 export default Home;
