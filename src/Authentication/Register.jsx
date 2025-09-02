@@ -10,7 +10,7 @@ const Register = () => {
   Title("Register");
   const [showPassword, SetShowPassword] = useState(false);
   return (
-    <div className="md:mt-30">
+    <div className="md:mt-10">
       <div className="hero-content flex-col-reverse lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <Lottie
@@ -19,13 +19,13 @@ const Register = () => {
             loop={true}
           />
         </div>
-        <div className="card  w-full max-w-sm shrink-0 shadow-2xl">
-          <div className="card-body">
-            <div className="text-center py-2">
-              <h1 className="text-3xl lg:text-5xl font-bold">Register now!</h1>
-              <p className="text-lg text-gray-500 py-2">
-                Create an account to get started
-              </p>
+        <div className="card  w-full max-w-sm shrink-0 shadow-2xl bg-[url('https://i.ibb.co.com/CpcZLrVK/Img-For-Contact-Part.jpg')] bg-cover bg-center before:absolute before:inset-0 before:bg-black/50 before:rounded-2xl">
+          <div className="card-body relative z-10">
+            <div className="text-center">
+              <h1 className="text-3xl lg:text-5xl font-bold text-[#c09e61]">
+                Register now!
+              </h1>
+              <p className="text-lg py-2">Create an account to get started</p>
             </div>
             <form className="fieldset">
               {/* User Name input field */}
@@ -215,7 +215,12 @@ const Register = () => {
             </div>
             {/* Login option */}
             <div className="text-center mt-4">
-                <p>Already have an account? <NavLink to="/auth/login" className="text-blue-500 font-bold">Login</NavLink></p>
+              <p>
+                Already have an account?{" "}
+                <NavLink to="/auth/login" className="text-blue-500 font-bold">
+                  Login
+                </NavLink>
+              </p>
             </div>
           </div>
         </div>

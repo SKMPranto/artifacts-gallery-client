@@ -1,25 +1,25 @@
 import Lottie from "lottie-react";
 import React, { useState } from "react";
-import registerLottie from "../assets/Lottie/Register.json";
+import logInLottie from "../assets/Lottie/Login.json";
 import { NavLink } from "react-router";
 import Title from "../Shared/Title";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 
 const Login = () => {
-    Title("Login");
-    const [showPassword, SetShowPassword] = useState(false)
+  Title("Login");
+  const [showPassword, SetShowPassword] = useState(false);
   return (
-    <div className="hero min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="md:mt-25">
+      <div className="hero-content flex-col-reverse lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <Lottie
             style={{ width: 400, height: 400 }}
-            animationData={registerLottie}
+            animationData={logInLottie}
             loop={true}
           />
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <div className="card-body">
+        <div className="card  w-full max-w-sm shrink-0 shadow-2xl bg-[url('https://i.ibb.co.com/CpcZLrVK/Img-For-Contact-Part.jpg')] bg-cover bg-center before:absolute before:inset-0 before:bg-black/50 before:rounded-2xl">
+          <div className="card-body relative z-10">
             <h1 className="text-5xl font-bold">Login now!</h1>
             <p>Please LogIn to get started</p>
             <form className="fieldset">
