@@ -1,7 +1,17 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { use } from "react";
+import { Link, NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../Auth_Context_Provider/AuthContext";
+import { IoLogOutOutline } from "react-icons/io5";
+import { HiOutlineLogin } from "react-icons/hi";
 
 const Navbar = () => {
+  const { user, userLogOut } = use(AuthContext);
+  const Navigate = useNavigate();
+  const handleLogOut = () => {
+    userLogOut().then(() => {
+      Navigate("/");
+    });
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm">
       {/* Navbar start */}
@@ -141,10 +151,11 @@ const Navbar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Profile Photo"
-                    src="https://i.ibb.co/jZDk7XVG/user-icon.png"
-                    // src={
-                    //     user?user.photoURL:"https://i.ibb.co/jZDk7XVG/user-icon.png"
-                    // }
+                    src={
+                      user
+                        ? user.photoURL
+                        : "https://i.ibb.co/jZDk7XVG/user-icon.png"
+                    }
                   />
                 </div>
               </div>
@@ -153,7 +164,9 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <h1 className="pl-2">
-                  <span className="justify-between">User Name</span>
+                  <span className="justify-between">
+                    {user ? user.displayName : "User Name"}
+                  </span>
                 </h1>
                 <li>
                   <NavLink
@@ -180,13 +193,35 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  {
+                    user?(
+                      <Link onClick={handleLogOut}>Logout <IoLogOutOutline /></Link>
+                    ):(<Link to="/auth/login">Login <HiOutlineLogin /></Link>)
+                  }
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <a className="btn mx-5">Logout</a>
+        {/* LogOut Button */}
+        <div className="mx-2">
+          {user ? (
+            <Link
+              // to="/"
+              onClick={handleLogOut}
+              className="btn btn-soft btn-info md:text-lg md:font-bold rounded-4xl"
+            >
+              Logout <IoLogOutOutline size={20} />{" "}
+            </Link>
+          ) : (
+            <NavLink
+              to="/auth/login"
+              className="btn btn-soft btn-info md:text-lg md:font-bold rounded-4xl"
+            >
+              Login <HiOutlineLogin size={20} />
+            </NavLink>
+          )}
+        </div>
       </div>
     </div>
   );

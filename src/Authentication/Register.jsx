@@ -87,7 +87,7 @@ const Register = () => {
               <h1 className="text-3xl lg:text-5xl font-bold text-[#c09e61]">
                 Register now!
               </h1>
-              <p className="text-lg py-2">Create an account to get started</p>
+              <p className="py-2">Create an account to get started</p>
             </div>
             <form onSubmit={handleRegister} className="fieldset">
               {/* User Name input field */}

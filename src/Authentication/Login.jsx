@@ -79,7 +79,7 @@ const Login = () => {
               <h1 className="text-3xl lg:text-5xl font-bold text-[#c09e61]">
                 Login now!
               </h1>
-              <p>Please LogIn to get started</p>
+              <p className="py-2">Please LogIn to get started</p>
             </div>
             <form onSubmit={handleSingIn} className="fieldset">
               {/* User Email input field */}
