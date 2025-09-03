@@ -4,48 +4,72 @@ import registerLottie from "../assets/Lottie/Register.json";
 import Title from "../Shared/Title";
 import { ImEye } from "react-icons/im";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
-import { NavLink } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Auth_Context_Provider/AuthContext";
 import Swal from "sweetalert2";
 
 const Register = () => {
   Title("Register");
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, updateUserProfile } = use(AuthContext);
+  const { createUser, updateUserProfile, googleSignIn } = use(AuthContext);
+  const location = useLocation();
+  const Navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const userData = Object.fromEntries(formData);
-    console.log(userData);
     // create user
     createUser(userData.email, userData.password)
-      .then(() =>
-        // UpDate User Profile
+      .then(() => {
         updateUserProfile({
           displayName: userData.username,
           photoURL: userData.url,
-        }).then(
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Registered Successfully",
-            showConfirmButton: false,
-            timer: 1500,
-          })
-        )
-      )
+        });
+      })
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registered Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        Navigate(`${location.search ? location.state : "/"}`);
+      })
       .catch((error) => {
         Swal.fire({
           position: "center",
           icon: "error",
           title: error.message,
-          showConfirmButton: false,
-          timer: 2500,
+          showConfirmButton: true,
         });
       });
-      form.reset();
+
+    form.reset();
+  };
+  // Google Login system
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You have logged in successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        Navigate(`${location.search ? location.state : "/"}`);
+      })
+      .catch((e) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: e.message,
+          showConfirmButton: true,
+        });
+      });
   };
   return (
     <div className="md:mt-10">
@@ -220,7 +244,10 @@ const Register = () => {
             </form>
             {/* <!-- Google Sign In --> */}
             <div>
-              <button className="btn bg-white text-black border-[#e5e5e5] w-full">
+              <button
+                onClick={handleGoogleSignIn}
+                className="btn bg-white text-black border-[#e5e5e5] w-full"
+              >
                 <svg
                   aria-label="Google logo"
                   width="35"

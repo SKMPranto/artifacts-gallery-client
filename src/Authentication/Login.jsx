@@ -1,13 +1,68 @@
 import Lottie from "lottie-react";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import logInLottie from "../assets/Lottie/Login.json";
-import { NavLink } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 import Title from "../Shared/Title";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
+import { AuthContext } from "../Auth_Context_Provider/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
   Title("Login");
   const [showPassword, setShowPassword] = useState(false);
+  const { signInUser, googleSignIn } = use(AuthContext);
+  const location = useLocation();
+  const Navigate = useNavigate();
+
+  const handleSingIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const userData = Object.fromEntries(formData);
+    // Sign in user
+    signInUser(userData.email, userData.password)
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You have logged in successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        Navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch((e) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: e.message,
+          showConfirmButton: true,
+        });
+      });
+    form.reset();
+  };
+  // Google Login system
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You have logged in successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        Navigate(`${location.search ? location.state : "/"}`);
+      })
+      .catch((e) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: e.message,
+          showConfirmButton: true,
+        });
+      });
+  };
   return (
     <div className="md:mt-25">
       <div className="hero-content flex-col-reverse lg:flex-row-reverse">
@@ -21,10 +76,12 @@ const Login = () => {
         <div className="card  w-full max-w-sm shrink-0 shadow-2xl bg-[url('https://i.ibb.co.com/CpcZLrVK/Img-For-Contact-Part.jpg')] bg-cover bg-center before:absolute before:inset-0 before:bg-black/50 before:rounded-2xl">
           <div className="card-body relative z-10">
             <div className="text-center">
-            <h1 className="text-3xl lg:text-5xl font-bold text-[#c09e61]">Login now!</h1>
-            <p>Please LogIn to get started</p>
+              <h1 className="text-3xl lg:text-5xl font-bold text-[#c09e61]">
+                Login now!
+              </h1>
+              <p>Please LogIn to get started</p>
             </div>
-            <form className="fieldset">
+            <form onSubmit={handleSingIn} className="fieldset">
               {/* User Email input field */}
               <label className="label">Email</label>
               <label className="input validator">
@@ -118,7 +175,10 @@ const Login = () => {
             </form>
             {/* Google Login system */}
             <div>
-              <button className="btn bg-white text-black border-[#e5e5e5] w-full">
+              <button
+                onClick={handleGoogleSignIn}
+                className="btn bg-white text-black border-[#e5e5e5] w-full"
+              >
                 <svg
                   aria-label="Google logo"
                   width="35"
