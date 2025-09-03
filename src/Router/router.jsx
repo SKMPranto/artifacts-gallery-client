@@ -8,6 +8,7 @@ import MyArtifacts from "../Pages/MyArtifacts";
 import LikedArtifacts from "../Pages/LikedArtifacts";
 import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
+import ErrorPage from "../Pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -41,8 +42,9 @@ const router = createBrowserRouter([
       {
         path:"/auth/register",
         Component: Register
-      }
+      },
     ],
+    errorElement:<ErrorPage></ErrorPage>
   },
 ]);
 
