@@ -1,14 +1,52 @@
 import Lottie from "lottie-react";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import registerLottie from "../assets/Lottie/Register.json";
 import Title from "../Shared/Title";
 import { ImEye } from "react-icons/im";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { NavLink } from "react-router";
+import { AuthContext } from "../Auth_Context_Provider/AuthContext";
+import Swal from "sweetalert2";
 
 const Register = () => {
   Title("Register");
-  const [showPassword, SetShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { createUser, updateUserProfile } = use(AuthContext);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const userData = Object.fromEntries(formData);
+    console.log(userData);
+    // create user
+    createUser(userData.email, userData.password)
+      .then(() =>
+        // UpDate User Profile
+        updateUserProfile({
+          displayName: userData.username,
+          photoURL: userData.url,
+        }).then(
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Registered Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        )
+      )
+      .catch((error) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: error.message,
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      });
+      form.reset();
+  };
   return (
     <div className="md:mt-10">
       <div className="hero-content flex-col-reverse lg:flex-row-reverse">
@@ -27,7 +65,7 @@ const Register = () => {
               </h1>
               <p className="text-lg py-2">Create an account to get started</p>
             </div>
-            <form className="fieldset">
+            <form onSubmit={handleRegister} className="fieldset">
               {/* User Name input field */}
               <label className="label">UserName</label>
               <label className="input validator">
@@ -52,7 +90,7 @@ const Register = () => {
                   name="username"
                   required
                   placeholder="Username"
-                  pattern="[A-Za-z][A-Za-z0-9\-]*"
+                  pattern="[A-Za-z][A-Za-z0-9\- ]*"
                   minlength="3"
                   maxlength="30"
                   title="Only letters, numbers or dash"
@@ -159,7 +197,7 @@ const Register = () => {
                   type="button"
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-blue-600 cursor-pointer"
                   onClick={() => {
-                    SetShowPassword(!showPassword);
+                    setShowPassword(!showPassword);
                   }}
                 >
                   {showPassword ? (

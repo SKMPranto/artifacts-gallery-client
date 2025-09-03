@@ -12,9 +12,9 @@ const Home = () => {
 
         <div className="relative md:flex items-center text-white gap-17">
           <div className="md:w-[50%] text-center md:text-left mb-5 md:mb-0">
-            <h1 className="text-3xl md:text-4xl lg:text-6xl">
+            <h1 className="text-2xl md:text-3xl lg:text-5xl 2xl:text-6xl">
               Welcome to <br />{" "}
-              <span className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#c09e61] asimovian-regular">
+              <span className="text-4xl md:text-4xl lg:text-6xl 2xl:text-7xl font-bold text-[#c09e61] asimovian-regular">
                 Artifacts Gallery
               </span>
             </h1>

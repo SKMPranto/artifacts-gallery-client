@@ -7,7 +7,7 @@ import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 
 const Login = () => {
   Title("Login");
-  const [showPassword, SetShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="md:mt-25">
       <div className="hero-content flex-col-reverse lg:flex-row-reverse">
@@ -20,8 +20,10 @@ const Login = () => {
         </div>
         <div className="card  w-full max-w-sm shrink-0 shadow-2xl bg-[url('https://i.ibb.co.com/CpcZLrVK/Img-For-Contact-Part.jpg')] bg-cover bg-center before:absolute before:inset-0 before:bg-black/50 before:rounded-2xl">
           <div className="card-body relative z-10">
-            <h1 className="text-5xl font-bold">Login now!</h1>
+            <div className="text-center">
+            <h1 className="text-3xl lg:text-5xl font-bold text-[#c09e61]">Login now!</h1>
             <p>Please LogIn to get started</p>
+            </div>
             <form className="fieldset">
               {/* User Email input field */}
               <label className="label">Email</label>
@@ -90,7 +92,7 @@ const Login = () => {
                   type="button"
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-blue-600 cursor-pointer"
                   onClick={() => {
-                    SetShowPassword(!showPassword);
+                    setShowPassword(!showPassword);
                   }}
                 >
                   {showPassword ? (
