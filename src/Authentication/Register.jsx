@@ -36,7 +36,7 @@ const Register = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        Navigate(`${location.search ? location.state : "/"}`);
+        Navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         Swal.fire({
@@ -60,7 +60,7 @@ const Register = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        Navigate(`${location.search ? location.state : "/"}`);
+        Navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((e) => {
         Swal.fire({
@@ -275,7 +275,7 @@ const Register = () => {
                     ></path>
                   </g>
                 </svg>
-                <span className="text-lg">Login with Google</span>
+                <span className="text-lg">Register with Google</span>
               </button>
             </div>
             {/* Login option */}

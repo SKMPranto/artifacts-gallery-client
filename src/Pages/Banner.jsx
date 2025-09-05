@@ -33,7 +33,7 @@ const Banner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 3500);
+    }, 2500);
     return () => clearInterval(interval);
   }, []);
 

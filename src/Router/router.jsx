@@ -9,6 +9,7 @@ import LikedArtifacts from "../Pages/LikedArtifacts";
 import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
 import ErrorPage from "../Pages/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -21,30 +22,46 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-artifacts",
-        Component: AddArtifacts,
+        element: (
+          <PrivateRoute>
+            <AddArtifacts></AddArtifacts>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/all-artifacts",
-        Component: AllArtifacts,
+        element: (
+          <PrivateRoute>
+            <AllArtifacts></AllArtifacts>
+          </PrivateRoute>
+        ),
       },
       {
-        path:"/my-artifacts",
-        Component: MyArtifacts
+        path: "/my-artifacts",
+        element: (
+          <PrivateRoute>
+            <MyArtifacts></MyArtifacts>
+          </PrivateRoute>
+        ),
       },
       {
-        path:"/liked-artifacts",
-        Component: LikedArtifacts
+        path: "/liked-artifacts",
+        element: (
+          <PrivateRoute>
+            <LikedArtifacts></LikedArtifacts>
+          </PrivateRoute>
+        ),
       },
       {
-        path:"/auth/login",
-        Component: Login
+        path: "/auth/login",
+        Component: Login,
       },
       {
-        path:"/auth/register",
-        Component: Register
+        path: "/auth/register",
+        Component: Register,
       },
     ],
-    errorElement:<ErrorPage></ErrorPage>
+    errorElement: <ErrorPage></ErrorPage>,
   },
 ]);
 

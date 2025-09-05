@@ -52,7 +52,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        Navigate(`${location.search ? location.state : "/"}`);
+        Navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((e) => {
         Swal.fire({
