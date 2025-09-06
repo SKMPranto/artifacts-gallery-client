@@ -12,6 +12,7 @@ const Navbar = () => {
       Navigate("/");
     });
   };
+  
   return (
     <div className="navbar border-b-1 border-[#c09e61]">
       {/* Navbar start */}

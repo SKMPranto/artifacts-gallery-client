@@ -10,9 +10,6 @@ const MyArtifacts = () => {
   const { user } = use(AuthContext);
   return (
     <div>
-      <h1 className="text-2xl md:text-3xl 2xl:text-4xl text-gray-400 font-bold asimovian-regular text-center block mt-10">
-        My Artifacts
-      </h1>
       <Suspense fallback={<Spinner></Spinner>}>
         <MyPostedArtifacts
           artifactsCreatedByPromise={artifactsCreatedByPromise(user.email)}
