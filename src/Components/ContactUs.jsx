@@ -13,13 +13,11 @@ const ContactUs = () => {
           </span>{" "}
           to us
         </h1>
-        <div>
           <Lottie
             style={{ width: 400, height: 400 }}
             animationData={contactUsLottie}
             loop={true}
           />
-        </div>
       </div>
       <div className="card grid grow place-items-center">
         <fieldset className="fieldset w-96">

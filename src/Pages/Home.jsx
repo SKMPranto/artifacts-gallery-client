@@ -4,6 +4,7 @@ import Title from "../Shared/Title";
 import { useLoaderData } from "react-router";
 import ArtifactsContainer from "../Components/ArtifactsContainer";
 import ContactUs from "../Components/ContactUs";
+import FAQ from "../Components/FAQ";
 
 const Home = () => {
   Title("Home")
@@ -42,6 +43,10 @@ const Home = () => {
       {/* Contact US */}
       <section>
         <ContactUs></ContactUs>
+      </section>
+      {/* Frequently Asked Question */}
+      <section>
+        <FAQ></FAQ>
       </section>
     </div>
   );
