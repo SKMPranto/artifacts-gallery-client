@@ -11,7 +11,7 @@ import Register from "../Authentication/Register";
 import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import Spinner from "../Shared/Spinner";
-import JobDetails from "../Pages/JobDetails";
+import ArtifactsDetails from "../Pages/ArtifactsDetails";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +20,8 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        HydrateFallback:Spinner,
-        loader:()=>fetch('http://localhost:3000/artifacts'),
+        HydrateFallback: Spinner,
+        loader: () => fetch("http://localhost:3000/artifacts"),
         Component: Home,
       },
       {
@@ -39,12 +39,19 @@ const router = createBrowserRouter([
             <AllArtifacts></AllArtifacts>
           </PrivateRoute>
         ),
+        HydrateFallback: Spinner,
+        loader: () => fetch("http://localhost:3000/artifacts"),
       },
       {
-        path:"/artifacts/:id",
-        element:<PrivateRoute>
-          <JobDetails></JobDetails>
-        </PrivateRoute>
+        path: "/artifacts/:id",
+        element: (
+          <PrivateRoute>
+            <ArtifactsDetails></ArtifactsDetails>
+          </PrivateRoute>
+        ),
+        HydrateFallback: Spinner,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/artifacts/${params.id}`),
       },
       {
         path: "/my-artifacts",
