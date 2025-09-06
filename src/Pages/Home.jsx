@@ -3,6 +3,7 @@ import Banner from "./Banner";
 import Title from "../Shared/Title";
 import { useLoaderData } from "react-router";
 import ArtifactsContainer from "../Components/ArtifactsContainer";
+import ContactUs from "../Components/ContactUs";
 
 const Home = () => {
   Title("Home")
@@ -37,6 +38,10 @@ const Home = () => {
       {/* Artifacts section */}
       <section>
         <ArtifactsContainer artifacts={artifacts}></ArtifactsContainer>
+      </section>
+      {/* Contact US */}
+      <section>
+        <ContactUs></ContactUs>
       </section>
     </div>
   );
