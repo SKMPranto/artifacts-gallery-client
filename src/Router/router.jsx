@@ -12,6 +12,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import Spinner from "../Shared/Spinner";
 import ArtifactsDetails from "../Pages/ArtifactsDetails";
+import UpdateArtifacts from "../Pages/UpdateArtifacts";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,17 @@ const router = createBrowserRouter([
             <LikedArtifacts></LikedArtifacts>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/updateArtifacts/:id",
+        HydrateFallback: Spinner,
+        element: (
+          <PrivateRoute>
+            <UpdateArtifacts></UpdateArtifacts>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/artifacts/${params.id}`),
       },
       {
         path: "/auth/login",

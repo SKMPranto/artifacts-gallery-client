@@ -1,12 +1,17 @@
 import React, { use } from "react";
-import { Link } from "react-router";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+import { NavLink } from "react-router";
 
 const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
   const artifacts = use(artifactsCreatedByPromise);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 mb-10 justify-items-center">
       {artifacts.map((artifact) => (
-        <div key={artifact._id} className="card w-85 md:w-90  2xl:w-100 shadow-lg rounded-lg shadow-amber-500 border-amber-700 hover:shadow-2xl hover:scale-103 transition-transform duration-300">
+        <div
+          key={artifact._id}
+          className="card w-85 md:w-90  2xl:w-100 shadow-lg rounded-lg shadow-amber-500 border-amber-700 hover:shadow-2xl hover:scale-103 transition-transform duration-300"
+        >
           <figure>
             <img
               src={artifact.artifactImage}
@@ -17,14 +22,28 @@ const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
           <div className="card-body">
             <h2 className="card-title">{artifact.artifactName}</h2>
             <p className="text-gray-300">{artifact.shortDescription}</p>
-            <div className="card-actions justify-center">
-              <Link
+            <div className="join join-vertical lg:join-horizontal gap-x-4 mt-4">
+              <NavLink
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 to={`/artifacts/${artifact._id}`}
-                className="btn btn-outline btn-info w-full"
+                className="btn join-item btn-soft btn-info md:text-lg rounded md:font-extrabold"
               >
-                View Details
-              </Link>
+                Details
+              </NavLink>
+              <NavLink
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                to={`/updateArtifacts/${artifact._id}`}
+                className="btn join-item btn-soft btn-warning md:text-lg rounded md:font-extrabold"
+              >
+                Edit <FaEdit />
+              </NavLink>
+              <NavLink
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                to={`/artifacts/${artifact._id}`}
+                className="btn join-item btn-soft btn-error md:text-lg rounded md:font-extrabold"
+              >
+                Delete <MdDeleteForever />
+              </NavLink>
             </div>
           </div>
         </div>
