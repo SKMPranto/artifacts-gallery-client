@@ -44,7 +44,7 @@ const AddArtifacts = () => {
       <h1 className="text-3xl md:text-5xl lg:text-5xl 2xl:text-6xl font-bold text-center my-5 md:my-8 asimovian-regular text-[#c09e61]">
         Add your Artifacts
       </h1>
-      <p className="text-center mb-5 md:text-2xl">
+      <p className="text-center mb-5 md:text-2xl text-gray-400">
         You can add your artifacts here and share them with the community.
       </p>
       <form onSubmit={handleAddArtifact}>
@@ -149,7 +149,7 @@ const AddArtifacts = () => {
                 </svg>
                 <input
                   type="url"
-                  name="artifact-Image"
+                  name="artifactImage"
                   required
                   placeholder="https://"
                   pattern="^(https?://)?([a-zA-Z0-9]([a-zA-Z0-9\-].*[a-zA-Z0-9])?\.)+[a-zA-Z].*$"

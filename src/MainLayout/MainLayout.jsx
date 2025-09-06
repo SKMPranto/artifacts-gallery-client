@@ -19,7 +19,7 @@ const MainLayout = () => {
     <div>
       {loading && <Spinner></Spinner>}
       <Navbar></Navbar>
-      <div className="min-h-[calc(100vh-60px)] w-[95%] md:w-[85%] lg:w-[80%] 2xl:w-[70%] mx-auto">
+      <div className="min-h-[calc(100vh-60px)] w-[97%] md:w-[95%] lg:w-[90%] 2xl:w-[70%] mx-auto">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>
