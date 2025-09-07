@@ -1,12 +1,69 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { NavLink } from "react-router";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
   const artifacts = use(artifactsCreatedByPromise);
 
-  if (artifacts.length === 0) {
+  // Local state management
+  const [myArtifacts, setMyArtifacts] = useState(artifacts);
+
+  // Remove artifact from list
+  const handleDeleteFromList = (id) => {
+    setMyArtifacts((prev) => prev.filter((artifact) => artifact._id !== id));
+  };
+
+  // Handle delete with SweetAlert2 + Axios
+  const handleDelete = (id) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-soft btn-success me-2",
+        cancelButton: "btn btn-soft btn-error",
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete(`http://localhost:3000/artifacts/${id}`)
+            .then((res) => {
+              if (res.data.deletedCount) {
+                swalWithBootstrapButtons.fire({
+                  title: "Deleted!",
+                  text: "Your artifact has been deleted.",
+                  icon: "success",
+                });
+                handleDeleteFromList(id); // update UI
+              }
+            })
+            .catch(() => {
+              Swal.fire("Error", "Failed to delete artifact", "error");
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelled",
+            text: "Your artifact is safe ",
+            icon: "error",
+          });
+        }
+      });
+  };
+
+  if (myArtifacts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-[60vh] text-center space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-300">
@@ -31,7 +88,7 @@ const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
         My Artifacts
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 mb-10 justify-items-center">
-        {artifacts.map((artifact) => (
+        {myArtifacts.map((artifact) => (
           <div
             key={artifact._id}
             className="card w-85 md:w-90 2xl:w-100 shadow-lg rounded-lg shadow-amber-500 border-amber-700 hover:shadow-2xl hover:scale-103 transition-transform duration-300"
@@ -48,32 +105,23 @@ const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
               <p className="text-gray-300">{artifact.shortDescription}</p>
               <div className="join join-vertical lg:join-horizontal gap-x-4 mt-4">
                 <NavLink
-                  onClick={() =>
-                    window.scrollTo({ top: 0, behavior: "smooth" })
-                  }
                   to={`/artifacts/${artifact._id}`}
                   className="btn join-item btn-soft btn-info md:text-lg rounded md:font-extrabold"
                 >
                   Details
                 </NavLink>
                 <NavLink
-                  onClick={() =>
-                    window.scrollTo({ top: 0, behavior: "smooth" })
-                  }
                   to={`/updateArtifacts/${artifact._id}`}
                   className="btn join-item btn-soft btn-warning md:text-lg rounded md:font-extrabold"
                 >
                   Edit <FaEdit />
                 </NavLink>
-                <NavLink
-                  onClick={() =>
-                    window.scrollTo({ top: 0, behavior: "smooth" })
-                  }
-                  to={`/artifacts/${artifact._id}`}
+                <button
+                  onClick={() => handleDelete(artifact._id)}
                   className="btn join-item btn-soft btn-error md:text-lg rounded md:font-extrabold"
                 >
                   Delete <MdDeleteForever />
-                </NavLink>
+                </button>
               </div>
             </div>
           </div>
