@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Title from "../Shared/Title";
 import { useLoaderData, useNavigate } from "react-router";
+import { AuthContext } from "../Auth_Context_Provider/AuthContext";
 
 const ArtifactsDetails = () => {
   Title("Artifact Details");
-  const { _id } = useLoaderData(); // Loader should just provide _id
-  const Navigate = useNavigate();
-
-  const userEmail = "currentUserEmail@example.com"; // Replace with auth user
+  const { _id } = useLoaderData(); // loader provides only _id
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [artifact, setArtifact] = useState(null);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
-  // Fetch artifact data including user's like status
   useEffect(() => {
+    if (!user?.email) return;
+
     const fetchArtifact = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/artifacts/${_id}?email=${userEmail}`
+          `http://localhost:3000/artifacts/${_id}?email=${user.email}`
         );
         const data = await response.json();
         setArtifact(data);
@@ -28,11 +29,13 @@ const ArtifactsDetails = () => {
         console.error("Failed to fetch artifact:", error);
       }
     };
-    fetchArtifact();
-  }, [_id, userEmail]);
 
-  // Toggle like
+    fetchArtifact();
+  }, [_id, user.email]);
+
   const handleToggleLike = async () => {
+    if (!user?.email) return;
+
     const newLiked = !liked;
     setLiked(newLiked);
     setLikeCount((prev) => (newLiked ? prev + 1 : prev - 1));
@@ -43,14 +46,13 @@ const ArtifactsDetails = () => {
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ liked: newLiked, email: userEmail }),
+          body: JSON.stringify({ liked: newLiked, email: user.email }),
         }
       );
 
-      if (!response.ok) throw new Error("Failed to update like");
-
       const data = await response.json();
-      setLikeCount(data.likes); // sync with server count
+      setLiked(data.isLiked);
+      setLikeCount(data.likes);
     } catch (error) {
       console.error("Failed to update like:", error);
       setLiked((prev) => !prev); // rollback
@@ -58,11 +60,11 @@ const ArtifactsDetails = () => {
     }
   };
 
-  if (!artifact) return <p>Loading...</p>;
+  if (!artifact) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <div>
-      <h1 className="text-2xl md:text-3xl 2xl:text-4xl text-[#c09e61] font-bold text-center my-2 mt-10">
+      <h1 className="text-2xl md:text-3xl 2xl:text-4xl text-[#c09e61] font-bold text-center mt-10">
         {artifact.artifactName}
       </h1>
 
@@ -80,7 +82,6 @@ const ArtifactsDetails = () => {
             <p className="py-6 text-gray-300 md:text-lg">
               {artifact.shortDescription}
             </p>
-
             <div className="badge badge-soft badge-info my-2 h-12 flex items-center justify-center text-left">
               <strong>Type: </strong> {artifact.artifactsType}
             </div>
@@ -118,7 +119,7 @@ const ArtifactsDetails = () => {
 
       <button
         onClick={() => {
-          Navigate("/all-artifacts");
+          navigate("/all-artifacts");
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
         className="btn btn-outline btn-wide mt-10 text-lg 2xl:text-2xl bg-gradient-to-r from-[#c09e61] via-amber-600 to-amber-700 border-0 hover:from-amber-600 hover:via-amber-700 hover:to-[#c09e61] mx-auto block"

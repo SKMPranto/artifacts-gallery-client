@@ -1,13 +1,12 @@
 import React, { useState, useEffect, use } from "react";
 import Title from "../Shared/Title";
-import { useNavigate } from "react-router";
+import { useNavigate, NavLink } from "react-router";
 import { AuthContext } from "../Auth_Context_Provider/AuthContext";
 
 const LikedArtifacts = () => {
   Title("Liked Artifacts");
-
+  const { user } = use(AuthContext);
   const Navigate = useNavigate();
-  const userEmail = use(AuthContext); // Replace with actual auth
 
   const [likedArtifacts, setLikedArtifacts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,25 +14,27 @@ const LikedArtifacts = () => {
   useEffect(() => {
     const fetchLikedArtifacts = async () => {
       try {
+        if (!user?.email) return setLikedArtifacts([]);
         const response = await fetch(
-          `http://localhost:3000/artifacts/liked?email=${userEmail}`
+          `http://localhost:3000/artifacts/liked?email=${user.email}`
         );
         const data = await response.json();
-        setLikedArtifacts(data);
+        setLikedArtifacts(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Failed to fetch liked artifacts:", error);
+        setLikedArtifacts([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchLikedArtifacts();
-  }, [userEmail]);
+  }, [user?.email]);
 
   if (loading)
     return <p className="text-center mt-10">Loading liked artifacts...</p>;
 
-  if (likedArtifacts.length === 0) {
+  if (!likedArtifacts.length) {
     return (
       <div className="text-center mt-10">
         <h2 className="text-2xl font-bold mb-4">
@@ -53,7 +54,7 @@ const LikedArtifacts = () => {
   }
 
   return (
-    <div className="mt-10 px-5">
+    <div className="my-10 px-5">
       <h1 className="text-3xl text-center font-bold text-[#c09e61] mb-8">
         Liked Artifacts
       </h1>
@@ -75,7 +76,7 @@ const LikedArtifacts = () => {
               <p className="text-gray-600 text-sm mb-2">
                 {artifact.shortDescription}
               </p>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center mb-2">
                 <span className="badge badge-info">
                   {artifact.artifactsType}
                 </span>
@@ -83,6 +84,13 @@ const LikedArtifacts = () => {
                   ❤️ {artifact.likes}
                 </span>
               </div>
+              {/* Details Button */}
+              <NavLink
+                to={`/artifacts/${artifact._id}`}
+                className="btn join-item btn-soft btn-info md:text-lg rounded md:font-extrabold w-full text-center"
+              >
+                Details
+              </NavLink>
             </div>
           </div>
         ))}

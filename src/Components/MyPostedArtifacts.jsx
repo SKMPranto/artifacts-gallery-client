@@ -1,22 +1,17 @@
-import React, { use, useState } from "react";
+import React from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { NavLink } from "react-router";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
-  const artifacts = use(artifactsCreatedByPromise);
-
-  // Local state management
-  const [myArtifacts, setMyArtifacts] = useState(artifacts);
-
-  // Remove artifact from list
+const MyPostedArtifacts = ({ artifacts, setArtifacts }) => {
+  // ✅ Remove artifact from UI after deletion
   const handleDeleteFromList = (id) => {
-    setMyArtifacts((prev) => prev.filter((artifact) => artifact._id !== id));
+    setArtifacts((prev) => prev.filter((artifact) => artifact._id !== id));
   };
 
-  // Handle delete with SweetAlert2 + Axios
+  // ✅ Handle delete with SweetAlert2 + Axios
   const handleDelete = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -47,7 +42,7 @@ const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
                   text: "Your artifact has been deleted.",
                   icon: "success",
                 });
-                handleDeleteFromList(id); // update UI
+                handleDeleteFromList(id);
               }
             })
             .catch(() => {
@@ -56,14 +51,14 @@ const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: "Cancelled",
-            text: "Your artifact is safe ",
+            text: "Your artifact is safe 🙂",
             icon: "error",
           });
         }
       });
   };
 
-  if (myArtifacts.length === 0) {
+  if (!artifacts || artifacts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-[60vh] text-center space-y-4">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-300">
@@ -84,11 +79,11 @@ const MyPostedArtifacts = ({ artifactsCreatedByPromise }) => {
 
   return (
     <div>
-      <h1 className="text-2xl md:text-3xl 2xl:text-4xl text-gray-400 font-bold asimovian-regular text-center block mt-10">
+      <h1 className="text-2xl md:text-3xl 2xl:text-4xl text-gray-400 font-bold text-center mt-10">
         My Artifacts
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10 mb-10 justify-items-center">
-        {myArtifacts.map((artifact) => (
+        {artifacts.map((artifact) => (
           <div
             key={artifact._id}
             className="card w-85 md:w-90 2xl:w-100 shadow-lg rounded-lg shadow-amber-500 border-amber-700 hover:shadow-2xl hover:scale-103 transition-transform duration-300"
