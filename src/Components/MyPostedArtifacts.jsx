@@ -34,7 +34,9 @@ const MyPostedArtifacts = ({ artifacts, setArtifacts }) => {
       .then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`http://localhost:3000/artifacts/${id}`)
+            .delete(
+              `https://artifact-gallery-server.vercel.app/artifacts/${id}`
+            )
             .then((res) => {
               if (res.data.deletedCount) {
                 swalWithBootstrapButtons.fire({

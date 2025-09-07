@@ -19,7 +19,7 @@ const ArtifactsDetails = () => {
     const fetchArtifact = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/artifacts/${_id}?email=${user.email}`
+          `https://artifact-gallery-server.vercel.app/artifacts/${_id}?email=${user.email}`
         );
         const data = await response.json();
         setArtifact(data);
@@ -42,7 +42,7 @@ const ArtifactsDetails = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/artifacts/${_id}/like`,
+        `https://artifact-gallery-server.vercel.app/artifacts/${_id}/like`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

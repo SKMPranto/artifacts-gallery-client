@@ -17,10 +17,11 @@ const LikedArtifacts = () => {
       try {
         if (!user?.email) return setLikedArtifacts([]);
         const response = await fetch(
-          `http://localhost:3000/artifacts/liked?email=${user.email}`,{
-                headers: {
-      authorization : `Bearer ${user.accessToken}`
-    },
+          `https://artifact-gallery-server.vercel.app/artifacts/liked?email=${user.email}`,
+          {
+            headers: {
+              authorization: `Bearer ${user.accessToken}`,
+            },
           }
         );
         const data = await response.json();
@@ -34,10 +35,9 @@ const LikedArtifacts = () => {
     };
 
     fetchLikedArtifacts();
-  }, [user?.email,user.accessToken]);
+  }, [user?.email, user.accessToken]);
 
-  if (loading)
-    return <Spinner></Spinner>;
+  if (loading) return <Spinner></Spinner>;
 
   if (!likedArtifacts.length) {
     return (

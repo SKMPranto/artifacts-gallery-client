@@ -27,25 +27,30 @@ const UpdateArtifacts = () => {
     const result = Object.fromEntries(formdata.entries());
 
     // send data to the server
-    axios.put(`http://localhost:3000/artifacts/${_id}`, result).then((res) => {
-      if (res.data.modifiedCount) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Your artifact has been added successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } else {
-        Swal.fire({
-          position: "center",
-          icon: "info",
-          title: "No changes made to the Artifact",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
+    axios
+      .put(
+        `https://artifact-gallery-server.vercel.app/artifacts/${_id}`,
+        result
+      )
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your artifact has been added successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "info",
+            title: "No changes made to the Artifact",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
   return (
     <div className="lg:w-[70%] mx-auto my-10">

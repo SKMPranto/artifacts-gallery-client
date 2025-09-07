@@ -16,7 +16,10 @@ const AddArtifacts = () => {
 
     // send data to the server
     axios
-      .post("http://localhost:3000/artifacts", artifactData)
+      .post(
+        "https://artifact-gallery-server.vercel.app/artifacts",
+        artifactData
+      )
       .then((res) => {
         if (res.data.insertedId) {
           Swal.fire({
@@ -29,13 +32,13 @@ const AddArtifacts = () => {
         }
       })
       .catch((e) => {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Failed to add artifact. Please try again." + e.message,
-            showConfirmButton: false,
-            timer: 2000,
-          });
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Failed to add artifact. Please try again." + e.message,
+          showConfirmButton: false,
+          timer: 2000,
+        });
       });
     form.reset();
   };

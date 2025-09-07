@@ -22,7 +22,8 @@ const router = createBrowserRouter([
       {
         path: "/",
         HydrateFallback: Spinner,
-        loader: () => fetch("http://localhost:3000/artifacts"),
+        loader: () =>
+          fetch("https://artifact-gallery-server.vercel.app/artifacts"),
         Component: Home,
       },
       {
@@ -41,7 +42,8 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         HydrateFallback: Spinner,
-        loader: () => fetch("http://localhost:3000/artifacts"),
+        loader: () =>
+          fetch("https://artifact-gallery-server.vercel.app/artifacts"),
       },
       {
         path: "/artifacts/:id",
@@ -52,7 +54,9 @@ const router = createBrowserRouter([
         ),
         HydrateFallback: Spinner,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/artifacts/${params.id}`),
+          fetch(
+            `https://artifact-gallery-server.vercel.app/artifacts/${params.id}`
+          ),
       },
       {
         path: "/my-artifacts",
@@ -79,7 +83,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/artifacts/${params.id}`),
+          fetch(
+            `https://artifact-gallery-server.vercel.app/artifacts/${params.id}`
+          ),
       },
       {
         path: "/auth/login",
