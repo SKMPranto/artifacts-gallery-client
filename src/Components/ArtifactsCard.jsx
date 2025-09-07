@@ -6,7 +6,6 @@ const ArtifactsCard = ({ artifact }) => {
 
   return (
     <div className="card w-85 md:w-90 2xl:w-100 shadow-lg rounded-lg shadow-amber-500 border-amber-700 hover:shadow-2xl hover:scale-103 transition-transform duration-300">
-      {/* Main code */}
       <figure>
         <img
           src={artifactImage}

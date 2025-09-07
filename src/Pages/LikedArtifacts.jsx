@@ -1,6 +1,6 @@
 import React, { useState, useEffect, use } from "react";
 import Title from "../Shared/Title";
-import { useNavigate, NavLink } from "react-router";
+import { useNavigate, NavLink, Link } from "react-router";
 import { AuthContext } from "../Auth_Context_Provider/AuthContext";
 
 const LikedArtifacts = () => {
@@ -36,7 +36,7 @@ const LikedArtifacts = () => {
 
   if (!likedArtifacts.length) {
     return (
-      <div className="text-center mt-10">
+      <div className="text-center my-10">
         <h2 className="text-2xl font-bold mb-4">
           You haven't liked any artifacts yet!
         </h2>
@@ -54,7 +54,7 @@ const LikedArtifacts = () => {
   }
 
   return (
-    <div className="my-10 px-5">
+    <div className="my-10">
       <h1 className="text-3xl text-center font-bold text-[#c09e61] mb-8">
         Liked Artifacts
       </h1>
@@ -62,35 +62,35 @@ const LikedArtifacts = () => {
         {likedArtifacts.map((artifact) => (
           <div
             key={artifact._id}
-            className="card border border-amber-700 shadow-lg shadow-amber-500 rounded-lg overflow-hidden"
+            className="card w-85 md:w-90 2xl:w-100 shadow-lg rounded-lg shadow-amber-500 border-amber-700 hover:shadow-2xl hover:scale-103 transition-transform duration-300"
           >
-            <img
-              src={artifact.artifactImage}
-              alt={artifact.artifactName}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-bold mb-2">
-                {artifact.artifactName}
-              </h2>
-              <p className="text-gray-600 text-sm mb-2">
-                {artifact.shortDescription}
-              </p>
-              <div className="flex justify-between items-center mb-2">
-                <span className="badge badge-info">
-                  {artifact.artifactsType}
-                </span>
-                <span className="text-red-500 font-semibold">
-                  ❤️ {artifact.likes}
-                </span>
+            <figure>
+              <img
+                src={artifact.artifactImage}
+                alt={artifact.artifactName}
+                className="h-62 w-full object-cover"
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{artifact.artifactName}</h2>
+              <p className="text-gray-300">{artifact.shortDescription}</p>
+
+              {/* Like count badge */}
+              <div className="badge badge-info text-white font-semibold">
+                ❤️ {artifact.likes || 0} Likes
               </div>
-              {/* Details Button */}
-              <NavLink
-                to={`/artifacts/${artifact._id}`}
-                className="btn join-item btn-soft btn-info md:text-lg rounded md:font-extrabold w-full text-center"
-              >
-                Details
-              </NavLink>
+
+              <div className="card-actions justify-center mt-3">
+                <Link
+                  onClick={() =>
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                  }
+                  to={`/artifacts/${artifact._id}`}
+                  className="btn btn-outline btn-info w-full"
+                >
+                  View Details
+                </Link>
+              </div>
             </div>
           </div>
         ))}

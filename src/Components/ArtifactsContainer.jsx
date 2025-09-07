@@ -32,11 +32,11 @@ const ArtifactsContainer = ({ artifacts }) => {
       </div>
 
       {/* Show All Artifacts Button */}
-      <div className="flex justify-center mb-10">
+      <div className="flex justify-center my-20">
         <Link
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           to="/all-artifacts"
-          className="btn btn-primary"
+          className="btn btn-success btn-wide text-lg md:text-2xl"
         >
           Show All Artifacts
         </Link>
