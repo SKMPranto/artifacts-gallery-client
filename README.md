@@ -1,12 +1,30 @@
-# React + Vite
+# Artifacts Gallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Purpose
 
-Currently, two official plugins are available:
+Artifacts Gallery is a web application designed for users to showcase, manage, and explore historical and cultural artifacts. Users can add their own artifacts, monitor them, and perform CRUD (Create, Read, Update, Delete) operations. The application is built with a focus on interactivity, user authentication, and a smooth, responsive interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live URL
 
-## Expanding the ESLint configuration
+[Add your live URL here](#)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Key Features
+
+- **User Authentication:** Secure login and registration with JWT (JSON Web Token) support.
+- **CRUD Operations:** Users can add, update, delete, and view artifacts.
+- **Responsive UI:** Built with Tailwind CSS for a sleek and modern design.
+- **Interactive Components:** Includes animations with Lottie and visual feedback with SweetAlert2.
+- **API Requests:** Axios used for communication between frontend and backend.
+
+## Technologies & NPM Packages Used
+
+- **React** (`^19.1.1`)
+- **React DOM** (`^19.1.1`)
+- **React Router** (`^7.8.2`)
+- **Tailwind CSS with Vite** (`@tailwindcss/vite": "^4.1.12"`)
+- **Firebase** (`^12.2.1`) – for authentication and data storage
+- **Axios** (`^1.11.0`) – for HTTP requests
+- **React Icons** (`^5.5.0`) – for iconography
+- **Lottie React** (`^2.4.1`) – for animations
+- **React Spinners** (`^0.17.0`) – for loading indicators
+- **SweetAlert2** (`^11.22.5`) – for alert pop-ups

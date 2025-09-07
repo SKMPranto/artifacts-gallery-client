@@ -2,6 +2,7 @@ import React, { useState, useEffect, use } from "react";
 import Title from "../Shared/Title";
 import { useNavigate, NavLink, Link } from "react-router";
 import { AuthContext } from "../Auth_Context_Provider/AuthContext";
+import Spinner from "../Shared/Spinner";
 
 const LikedArtifacts = () => {
   Title("Liked Artifacts");
@@ -16,7 +17,11 @@ const LikedArtifacts = () => {
       try {
         if (!user?.email) return setLikedArtifacts([]);
         const response = await fetch(
-          `http://localhost:3000/artifacts/liked?email=${user.email}`
+          `http://localhost:3000/artifacts/liked?email=${user.email}`,{
+                headers: {
+      authorization : `Bearer ${user.accessToken}`
+    },
+          }
         );
         const data = await response.json();
         setLikedArtifacts(Array.isArray(data) ? data : []);
@@ -29,10 +34,10 @@ const LikedArtifacts = () => {
     };
 
     fetchLikedArtifacts();
-  }, [user?.email]);
+  }, [user?.email,user.accessToken]);
 
   if (loading)
-    return <p className="text-center mt-10">Loading liked artifacts...</p>;
+    return <Spinner></Spinner>;
 
   if (!likedArtifacts.length) {
     return (

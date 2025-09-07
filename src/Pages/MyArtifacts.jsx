@@ -15,7 +15,7 @@ const MyArtifacts = () => {
   useEffect(() => {
     if (user?.email) {
       setLoading(true);
-      artifactsCreatedByPromise(user.email)
+      artifactsCreatedByPromise(user.email, user.accessToken)
         .then((data) => setMyArtifacts(data))
         .catch((err) => console.error(err))
         .finally(() => setLoading(false));
