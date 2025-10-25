@@ -1,6 +1,7 @@
 import React from "react";
 import contactUsLottie from "../assets/Lottie/contactus.json";
 import Lottie from "lottie-react";
+import Swal from "sweetalert2";
 
 const ContactUs = () => {
   return (
@@ -13,11 +14,11 @@ const ContactUs = () => {
           </span>{" "}
           to us
         </h1>
-          <Lottie
-            style={{ width: 400, height: 400 }}
-            animationData={contactUsLottie}
-            loop={true}
-          />
+        <Lottie
+          style={{ width: 400, height: 400 }}
+          animationData={contactUsLottie}
+          loop={true}
+        />
       </div>
       <div className="card grid grow place-items-center">
         <fieldset className="fieldset w-96">
@@ -26,7 +27,21 @@ const ContactUs = () => {
             placeholder="Your Feedback"
             className="textarea textarea-success"
           ></textarea>
-          <button className="btn btn-success w-81">Send</button>
+          <button
+            onClick={() => {
+              Swal.fire({
+                position: "center",
+                icon: "info",
+                title: "Unavailable",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }}
+            type="button"
+            className="btn btn-success w-81"
+          >
+            Send
+          </button>
         </fieldset>
       </div>
     </div>

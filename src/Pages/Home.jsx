@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div>
       {/* Banner section */}
-      <div className="relative bg-[url('https://i.ibb.co.com/KpDpZpZv/Screenshot-2025-09-02-174856.jpg')] bg-cover bg-center mt-5 md:pl-2 rounded-2xl">
+      <div className="relative bg-[url('https://i.ibb.co.com/KpDpZpZv/Screenshot-2025-09-02-174856.jpg')] bg-cover bg-center mt-24 md:pl-2 rounded-2xl">
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/50 rounded-2xl"></div>
 

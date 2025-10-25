@@ -14,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar border-b-1 border-[#c09e61]">
+    <div className="navbar border-b-1 border-[#c09e61] fixed top-0 left-0 w-full bg-base-100 z-50">
       {/* Navbar start */}
       <div className="navbar-start">
         <div className="dropdown">
@@ -212,7 +212,6 @@ const Navbar = () => {
         <div className="mx-2">
           {user ? (
             <Link
-              // to="/"
               onClick={handleLogOut}
               className="btn btn-soft btn-info md:text-lg md:font-bold rounded-4xl"
             >
